@@ -1,0 +1,26 @@
+<div class="jumbotron text-center">
+	<h1>All Records</h1>
+	
+</div>
+
+<table class="table table-bordered table-hover table-striped">
+	<thead>
+		<tr>
+			<th>Board ID</th>
+			<th>Temperature</th>
+			<th>Humidity</th>
+			
+		</tr>
+	</thead>
+
+	<tbody>
+		<% for (var record of records) {%>
+			<tr>
+				<td><%= record.board_id %> </td>
+				<td><%= record.temperature %> </td>
+				<td><%= record.humidity %></td>
+				
+			</tr>
+		<%} %>
+	</tbody>
+</table>
