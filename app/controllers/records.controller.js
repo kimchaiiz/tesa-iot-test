@@ -1,39 +1,30 @@
-const db = require('./../../index');
+const Record = require('../models/record');
 
+	//create some events
+	const records = [
+	{ board_id: 'AAAA', temperature: 25 , humidity: 15},
+	{ board_id: 'AAAA', temperature: 22 , humidity: 17},
+	{ board_id: 'BBBB', temperature: 23 , humidity: 19},
+	{ board_id: 'BBBB', temperature: 24 , humidity: 16},
+	];
 
 module.exports ={
 		showRecords : showRecords,
 	/*	showSingle : showSingle,*/
-		
+	//	seedRecords : seedRecords
 }
 
 /**
 //show all events
 */
-
 function showRecords(req, res) {
-    
-db.FindinCol1().then(function(items) {
-  console.info('The promise was fulfilled with items!', items);
-}, function(err) {
-  console.error('The promise was rejected', err, err.stack);
-});
-res.render('pages/records',{items:items});
-}
-
-
-/*function showRecords(req, res) {
 	//get all events
-	const items= db.FindCol(function(err,items){
+	Record.find({}, function(err, records){
 		//return a view with data
-		res.render('pages/records',{items:items});
+	res.render('pages/records',{records:records});
+	
 	});
-		
-	
-	
-	}
-
-
+}
 
 
 /*
@@ -48,5 +39,4 @@ function showSingle(req,res) {
 /**
 //seed the database
 */
-
 

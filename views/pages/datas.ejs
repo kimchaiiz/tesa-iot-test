@@ -1,0 +1,26 @@
+<div class="jumbotron text-center">
+	<h1>All Records</h1>
+	
+</div>
+
+<table class="table table-bordered table-hover table-striped">
+	<thead>
+		<tr>
+			<th>Board ID</th>
+			<th>Temperature</th>
+			<th>Humidity</th>
+			
+		</tr>
+	</thead>
+
+	<tbody>
+		<% for (var data of datas) {%>
+			<tr>
+				<td><%= data.Device_EUI %> 	</td>
+				<td><%= data.temperature.value %> 	</td>
+				<td><%= data.humidnity.value %>		</td>
+				
+			</tr>
+		<% } %>
+	</tbody>
+</table>

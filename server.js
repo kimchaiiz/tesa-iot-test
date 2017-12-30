@@ -8,10 +8,12 @@ const 	express = require('express'),
 		expressLayouts = require('express-ejs-layouts'),
 		mongoose = require('mongoose'),
 		mongo = require('mongodb'),
-		index = require('./index');
+		index = require('./index'),
+		mongoUse = require('./mongoUse');
 
 
 //config our application
+
 
 
 //tell express where to look for static assets
@@ -31,3 +33,4 @@ const 	express = require('express'),
 		console.log('App listening on http://localhost:${port}');
 	});
 // run index
+

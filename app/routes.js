@@ -26,4 +26,5 @@
 		router.get('/events/:slug', eventsController.showSingle);
 		*/
 		// test
-		//router.get('/datas/', datasController.showDatas);
+		router.get('/datas', datasController.showDatas);
+		router.get('/test', datasController.testDatas);
