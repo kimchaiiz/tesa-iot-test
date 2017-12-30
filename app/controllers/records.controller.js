@@ -1,9 +1,17 @@
 const Record = require('../models/record');
 
+	//create some events
+	const records = [
+	{ board_id: 'AAAA', temperature: 25 , humidity: 15},
+	{ board_id: 'AAAA', temperature: 22 , humidity: 17},
+	{ board_id: 'BBBB', temperature: 23 , humidity: 19},
+	{ board_id: 'BBBB', temperature: 24 , humidity: 16},
+	];
+
 module.exports ={
 		showRecords : showRecords,
 	/*	showSingle : showSingle,*/
-		seedRecords : seedRecords
+	//	seedRecords : seedRecords
 }
 
 /**
@@ -32,22 +40,3 @@ function showSingle(req,res) {
 //seed the database
 */
 
-function seedRecords(req,res) {
-	//create some events
-	const records = [
-	{ board_id: 'AAAA', temperature: 25 , humidity: 15},
-	{ board_id: 'AAAA', temperature: 22 , humidity: 17},
-	{ board_id: 'BBBB', temperature: 23 , humidity: 19},
-	{ board_id: 'BBBB', temperature: 24 , humidity: 16},
-	];
-
-	//use the event model to insert/save
-	Record.remove({},() => {
-	for (record of records) {
-		var newRecord = new Record(record);
-		newRecord.save();
-	}
-});
-	//seeded!
-	res.send('Database seeded!');
-}

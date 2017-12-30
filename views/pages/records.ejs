@@ -14,11 +14,11 @@
 	</thead>
 
 	<tbody>
-		<% for (var record of records) {%>
+		<% for (var item of items) {%>
 			<tr>
-				<td><%= record.board_id %> </td>
-				<td><%= record.temperature %> </td>
-				<td><%= record.humidity %></td>
+				<td><%= item: Device_EUI %> </td>
+				<td><%= item: "temperature" %> </td>
+				<td><%= item: "humidity" %></td>
 				
 			</tr>
 		<%} %>

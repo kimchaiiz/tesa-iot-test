@@ -3,6 +3,7 @@
 		router = express.Router();
 		mainController = require('./controllers/main.controller');
 		recordsController = require('./controllers/records.controller');
+		datasController = require('./controllers/datas.controller');
 
 		//export router
 		module.exports = router;
@@ -15,7 +16,7 @@
 		
 		
 		// seed events
-		router.get('/records/seed', recordsController.seedRecords);
+		//router.get('/records/seed', recordsController.seedRecords);
 		//create events
 		//edit events
 		//delete events
@@ -24,3 +25,6 @@
 /*
 		router.get('/events/:slug', eventsController.showSingle);
 		*/
+		// test
+		router.get('/datas', datasController.showDatas);
+		router.get('/test', datasController.testDatas);
