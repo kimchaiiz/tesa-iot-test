@@ -5,7 +5,8 @@ Schema = mongoose.Schema;
 	const recordSchema = new Schema({
 		board_id: String,
 		temperature: Number,
-		humidity: Number
+		humidity: Number,
+		data: String
 
 	});
 

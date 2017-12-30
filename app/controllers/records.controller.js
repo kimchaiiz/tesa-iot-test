@@ -1,22 +1,39 @@
-const Record = require('../models/record');
+const db = require('./../../index');
+
 
 module.exports ={
 		showRecords : showRecords,
 	/*	showSingle : showSingle,*/
-		seedRecords : seedRecords
+		
 }
 
 /**
 //show all events
 */
+
 function showRecords(req, res) {
-	//get all events
-	Record.find({}, function(err, records){
-		//return a view with data
-	res.render('pages/records',{records:records});
-	
-	});
+    
+db.FindinCol1().then(function(items) {
+  console.info('The promise was fulfilled with items!', items);
+}, function(err) {
+  console.error('The promise was rejected', err, err.stack);
+});
+res.render('pages/records',{items:items});
 }
+
+
+/*function showRecords(req, res) {
+	//get all events
+	const items= db.FindCol(function(err,items){
+		//return a view with data
+		res.render('pages/records',{items:items});
+	});
+		
+	
+	
+	}
+
+
 
 
 /*
@@ -32,22 +49,4 @@ function showSingle(req,res) {
 //seed the database
 */
 
-function seedRecords(req,res) {
-	//create some events
-	const records = [
-	{ board_id: 'AAAA', temperature: 25 , humidity: 15},
-	{ board_id: 'AAAA', temperature: 22 , humidity: 17},
-	{ board_id: 'BBBB', temperature: 23 , humidity: 19},
-	{ board_id: 'BBBB', temperature: 24 , humidity: 16},
-	];
 
-	//use the event model to insert/save
-	Record.remove({},() => {
-	for (record of records) {
-		var newRecord = new Record(record);
-		newRecord.save();
-	}
-});
-	//seeded!
-	res.send('Database seeded!');
-}
