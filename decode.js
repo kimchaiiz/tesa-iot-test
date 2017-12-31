@@ -8,6 +8,7 @@ const data_type_size_map = {} ;
   data_type_size_map["86"]= 6;//gyro
   data_type_size_map["00"]= 1;//digital input
   data_type_size_map["01"]= 1;//dugital output
+  data_type_size_map["88"]= 9;//GPS la-long-Al
 const data_type_resolute = {} ;
   data_type_resolute["73"] = 0.1; //barometer
   data_type_resolute["67"]= 0.1; //temperature
@@ -17,6 +18,7 @@ const data_type_resolute = {} ;
   data_type_resolute["86"]= 0.1;//mdegpersec
   data_type_resolute["00"]= 1;//digital input
   data_type_resolute["01"]= 1;//dugital output
+  data_type_resolute["88"]= 0.0001;// la-degree,long-degree,**Al-centimeter
 const accelero3d ={};
   accelero3d["0"] = "acc_x";
   accelero3d["1"] = "acc_y";
@@ -29,20 +31,25 @@ const gyro3d ={};
   gyro3d["0"] = "gyc_x";
   gyro3d["1"] = "gyc_y";
   gyro3d["2"] = "gyc_z";
+const gps = {};
+  gps["0"]= "Latitude";
+  gps["1"]= "Longitude";
+  gps["2"]= "Altitude";
 const data_type_name_map = {} ;
-//Unit unsign
+//Sign int
 data_type_name_map["67"]= "temperature"; //temperature
 data_type_name_map["71"]= accelero3d; //acc
 data_type_name_map["72"]= magneto3d;//magneto
 data_type_name_map["86"]= gyro3d;//gyro
-//sign int
+data_type_name_map["88"]= gps ;// GPS
+//Unsign int
 data_type_name_map["68"]= "humidnity"; //humid
 data_type_name_map["73"] = "pressure"; //barometer
 data_type_name_map["00"]= "digital_in";//digital input
 data_type_name_map["01"]= "digital_out";//dugital output
   Hex_to_sInt = function(hex,d_type) {
     var num = parseInt(hex, 16);
-    if (["67","71","72","86"].includes(d_type)) { //unsign
+    if (["67","71","72","86","88"].includes(d_type)) { //Sign
       if (hex.length % 2 != 0) {
             hex = "0" + hex;
         }
@@ -52,7 +59,7 @@ data_type_name_map["01"]= "digital_out";//dugital output
         }
         return (Math.round(num*100))/100;
 
-      }else if (["73","68","00","01"].includes(d_type)) {//sign
+      }else if (["73","68","00","01"].includes(d_type)) {//Unsign
         var num = parseInt(hex, 16);
       }
       return (Math.round(num*100))/100 ;
@@ -98,7 +105,7 @@ module.exports  ={
       var _type = data.substr(2, 2);
       if (_type in data_type_size_map) {
         var data_str = data.substr(4, data_type_size_map[_type] * 2);
-        if (["71","72","86"].includes(_type)) {
+        if (["71","72","86","88"].includes(_type)) { //3d obj
           for(i=0 ; i<3; i++){
             data_str = data.substr(4+4*i,4);
             obj[data_type_name_map[_type][i.toString()]] = {channel : _channel, type : _type , value : Hex_to_sInt(data_str,_type)*data_type_resolute[_type]};
