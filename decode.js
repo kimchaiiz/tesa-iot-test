@@ -1,4 +1,4 @@
-//decode module
+
 const data_type_size_map = {} ;
   data_type_size_map["73"] = 2; //barometer
   data_type_size_map["67"]= 2; //temperature
@@ -30,26 +30,33 @@ const gyro3d ={};
   gyro3d["1"] = "gyc_y";
   gyro3d["2"] = "gyc_z";
 const data_type_name_map = {} ;
-  data_type_name_map["73"] = "pressure"; //barometer
-  data_type_name_map["67"]= "temperature"; //temperature
-  data_type_name_map["68"]= "humidnity"; //humid
-  data_type_name_map["71"]= accelero3d; //acc
-  data_type_name_map["72"]= magneto3d;//magneto
-  data_type_name_map["86"]= gyro3d;//gyro
-  data_type_name_map["00"]= "digital_in";//digital input
-  data_type_name_map["01"]= "digital_out";//dugital output
-Hex_to_sInt = function(hex) {
-  if (hex.length % 2 != 0) {
-        hex = "0" + hex;
-    }
+//Unit unsign
+data_type_name_map["67"]= "temperature"; //temperature
+data_type_name_map["71"]= accelero3d; //acc
+data_type_name_map["72"]= magneto3d;//magneto
+data_type_name_map["86"]= gyro3d;//gyro
+//sign int
+data_type_name_map["68"]= "humidnity"; //humid
+data_type_name_map["73"] = "pressure"; //barometer
+data_type_name_map["00"]= "digital_in";//digital input
+data_type_name_map["01"]= "digital_out";//dugital output
+  Hex_to_sInt = function(hex,d_type) {
     var num = parseInt(hex, 16);
-    var maxVal = Math.pow(2, hex.length / 2 * 8);
-    if (num > maxVal / 2 - 1) {
-        num = num - maxVal
-    }
-    return (Math.round(num*100))/100;
-}
+    if (["67","71","72","86"].includes(d_type)) { //unsign
+      if (hex.length % 2 != 0) {
+            hex = "0" + hex;
+        }
+        var maxVal = Math.pow(2, hex.length / 2 * 8);
+        if (num > maxVal / 2 - 1) {
+            num = num - maxVal
+        }
+        return (Math.round(num*100))/100;
 
+      }else if (["73","68","00","01"].includes(d_type)) {//sign
+        var num = parseInt(hex, 16);
+      }
+      return (Math.round(num*100))/100 ;
+  }
 
 
 module.exports  ={
@@ -59,10 +66,7 @@ module.exports  ={
       return undefined;
       }
       var date = new Date(timestamp);
-
-
       var year = date.getFullYear();
-
       // Month in range [1, 12]
       var month = date.getMonth() + 1;
       var day = date.getDate();
@@ -97,14 +101,12 @@ module.exports  ={
         if (["71","72","86"].includes(_type)) {
           for(i=0 ; i<3; i++){
             data_str = data.substr(4+4*i,4);
-            obj[data_type_name_map[_type][i.toString()]] = {channel : _channel, type : _type , value : Hex_to_sInt(data_str)*data_type_resolute[_type]};
+            obj[data_type_name_map[_type][i.toString()]] = {channel : _channel, type : _type , value : Hex_to_sInt(data_str,_type)*data_type_resolute[_type]};
             //obj[data_type_name_map[_type][i.toString()]] = {channel : _channel, type : _type , value : data_str};
           }
         }else {
-          obj[data_type_name_map[_type]] = {channel : _channel, type : _type , value : Math.round(100*(Hex_to_sInt(data_str)*data_type_resolute[_type]))/100};//pharseInt=> Convert hex to decimal
+          obj[data_type_name_map[_type]] = {channel : _channel, type : _type , value : Math.round(100*(Hex_to_sInt(data_str,_type)*data_type_resolute[_type]))/100};//pharseInt=> Convert hex to decimal
         }
-
-
         // move data pointer
         data = data.substr(data_type_size_map[_type] * 2 + 4);
       } else {

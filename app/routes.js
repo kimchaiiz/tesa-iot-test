@@ -4,7 +4,7 @@
 		mainController = require('./controllers/main.controller');
 		recordsController = require('./controllers/records.controller');
 		datasController = require('./controllers/datas.controller');
-
+		
 		//export router
 		module.exports = router;
 
@@ -20,6 +20,7 @@
 		//create events
 		//edit events
 		//delete events
+		
 		
 		// show a single event
 /*

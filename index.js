@@ -4,11 +4,16 @@ const WebSocket = require('ws');
 //Improt decode
 const decode = require('./decode');
 // Websocket
-const ws = new WebSocket(process.env.WS_URL);
+
+var ws = new WebSocket(process.env.WS_URL);
+
+module.exports = {ws};
+	function connectToWebsocket(){
+	 	
+	 }
 
 //connect to our database
 var mongoUse = require('./mongoUse');
-
 
 mongoUse.connectToServer(function(err){
 
@@ -25,9 +30,9 @@ mongoUse.connectToServer(function(err){
 	  var obj = Object.assign(obj_EUI,obj_timestamp, obj_data);
 
 	  //var myJSON = JSON.stringify(obj);
-	  console.log(_data.data)
-	  console.log(obj);
-	  seedData(obj);
+	  //console.log(_data.data)
+	  //console.log(obj);
+	 seedData(obj);
 
 	  //console.log(myJSON);
 	  //console.log(`timestamp = ${obj.ts}`);

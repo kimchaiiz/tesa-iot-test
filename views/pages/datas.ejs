@@ -1,15 +1,17 @@
 <div class="jumbotron text-center">
 	<h1>All Records</h1>
-	
+	<a href="#" onclick="exportTableToCSV('members.csv')" class="btn btn-lg btn-danger" >
+		Export to CSV
+	</a>
 </div>
 
 <table class="table table-bordered table-hover table-striped">
 	<thead>
 		<tr>
-			<th>Board ID</th>
+			<th>Device_EUI</th>
+			<th>Pressure</th>
 			<th>Temperature</th>
-			<th>Humidity</th>
-			
+			<th>Huminity</th>
 		</tr>
 	</thead>
 
@@ -17,8 +19,18 @@
 		<% for (var data of datas) {%>
 			<tr>
 				<td><%= data.Device_EUI %> 	</td>
-				<td><%= data.temperature.value %> 	</td>
-				<td><%= data.humidnity.value %>		</td>
+				<% if (typeof data.timestamp != 'undefined') { %>
+					<td><%= data.timestamp.time %> </td>
+				<% } else { %>
+					<td><%= ' Undefined' %>	</td>
+				<% } %>
+
+				<% if (typeof data.temperature != 'undefined') { %>
+					<td><%= data.temperature.value %> </td>
+				<% } else { %>
+					<td><%=  'Undefined' 	%></td> 
+					<% } %>
+
 				
 			</tr>
 		<% } %>
