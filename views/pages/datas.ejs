@@ -5,15 +5,38 @@
 	</a>
 </div>
 
+
 <table class="table table-bordered table-hover table-striped">
 	<thead>
 		<tr>
 			<th>Device_EUI</th>
 			<th>Date</th>
 			<th>Time</th>
-			<th>Pressure</th>
 			<th>Temperature</th>
+			<th>Pressure</th>
 			<th>Huminity</th>
+			<th></th><th>Acceleration</th>	<th></th>
+			<th></th><th>Gyro</th><th></th>
+			<th></th><th>Magnetic Field</th><th></th>
+			<th>Digital Input</th>
+			<th>Digital Output</th>
+		</tr>
+		<tr>
+			<th></th><th></th><th></th><th></th><th></th><th></th>
+			<th>X-Axis</th>
+			<th>Y-Axis</th>
+			<th>Z-Axis</th>
+
+			<th>X-Axis</th>
+			<th>Y-Axis</th>
+			<th>Z-Axis</th>
+
+			<th>X-Axis</th>
+			<th>Y-Axis</th>
+			<th>Z-Axis</th>
+			<th></th>
+			<th></th>
+
 		</tr>
 	</thead>
 
@@ -21,10 +44,9 @@
 		<% for (var data of datas) {%>
 			<tr>
 				<td><%= data.Device_EUI %> 	</td>
-				<td><%= data.timestamp.date  %></td>
-				<td><%= data.timestamp.time  %></td>
-				<% if (typeof data.pressure != 'undefined') { %>
-					<td><%= data.pressure.value %> </td>
+				<% if (typeof data.timestamp != 'undefined') { %>
+					<td><%= data.timestamp.date %> </td>
+					<td><%= data.timestamp.time %> </td>
 				<% } else { %>
 					<td><%= ' Undefined' %>	</td>
 				<% } %>
@@ -32,14 +54,91 @@
 				<% if (typeof data.temperature != 'undefined') { %>
 					<td><%= data.temperature.value %> </td>
 				<% } else { %>
-					<td><%=  'Undefined' 	%></td> 
+					<td><%=  'Undefined' 	%></td>
 					<% } %>
 
-				<% if (typeof data.humidnity != 'undefined') { %>
-					<td><%= data.humidnity.value %> </td>
+				<% if (typeof data.pressure != 'undefined') { %>
+						<td><%= data.pressure.value %> </td>
 				<% } else { %>
-					<td><%=  'Undefined' 	%></td> 
-					<% } %>				
+						<td><%=  'Undefined' 	%></td>
+						<% } %>
+
+				<% if (typeof data.humidnity != 'undefined') { %>
+						<td><%= data.humidnity.value %> </td>
+				<% } else { %>
+						<td><%=  'Undefined' 	%></td>
+							<% } %>
+				<!-- Accelerometer 3d -->
+				<% if (typeof data.acc_x != 'undefined') { %>
+						<td><%= data.acc_x.value %> </td>
+				<% } else { %>
+						<td><%=  'Undefined' 	%></td>
+							<% } %>
+
+				<% if (typeof data.acc_y != 'undefined') { %>
+						<td><%= data.acc_y.value %> </td>
+				<% } else { %>
+						<td><%=  'Undefined' 	%></td>
+							<% } %>
+
+				<% if (typeof data.acc_z != 'undefined') { %>
+						<td><%= data.acc_z.value %> </td>
+				<% } else { %>
+						<td><%=  'Undefined' 	%></td>
+							<% } %>
+				<!-- Gyrometer 3d -->
+				<% if (typeof data.gyc_x != 'undefined') { %>
+						<td><%= data.gyc_x.value %> </td>
+				<% } else { %>
+						<td><%=  'Undefined' 	%></td>
+							<% } %>
+
+				<% if (typeof data.gyc_y != 'undefined') { %>
+						<td><%= data.gyc_y.value %> </td>
+				<% } else { %>
+						<td><%=  'Undefined' 	%></td>
+							<% } %>
+
+				<% if (typeof data.gyc_z != 'undefined') { %>
+						<td><%= data.gyc_z.value %> </td>
+				<% } else { %>
+						<td><%=  'Undefined' 	%></td>
+							<% } %>
+
+				<!-- Magnetic Fields 3d -->
+				<% if (typeof data.mag_x != 'undefined') { %>
+						<td><%= data.mag_x.value %> </td>
+				<% } else { %>
+						<td><%=  'Undefined' 	%></td>
+							<% } %>
+
+				<% if (typeof data.mag_y != 'undefined') { %>
+						<td><%= data.mag_y.value %> </td>
+				<% } else { %>
+						<td><%=  'Undefined' 	%></td>
+							<% } %>
+
+				<% if (typeof data.mag_z != 'undefined') { %>
+						<td><%= data.mag_z.value %> </td>
+				<% } else { %>
+						<td><%=  'Undefined' 	%></td>
+							<% } %>
+
+				<% if (typeof data.digital_in != 'undefined') { %>
+						<td><%= data.digital_in.value %> </td>
+				<% } else { %>
+						<td><%=  'Undefined' 	%></td>
+							<% } %>
+
+				<% if (typeof data.digital_out != 'undefined') { %>
+						<td><%= data.digital_out.value %> </td>
+				<% } else { %>
+						<td><%=  'Undefined' 	%></td>
+							<% } %>
+
+
+
+
 			</tr>
 		<% } %>
 	</tbody>

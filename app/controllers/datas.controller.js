@@ -5,16 +5,26 @@ var mongoUse = require('./../../mongoUse');
 
 module.exports ={
 		showDatas : showDatas,
-		testDatas : testDatas
+		testDatas : testDatas,
+		showDashboard : showDashboard
 }
-
+// show Dashboard
+function showDashboard(req,res){
+	var db=mongoUse.getDb();
+	db.collection('sensor').find().sort({_id:-1}).limit(10).toArray(function(err,datas){
+  	//console.log(data);
+  	//return documents = data;
+  	//return a view with data
+  	res.render('pages/dashboard',{datas:datas});
+  });
+}
 
 //show all datas
 
 function showDatas(req, res) {
 	//get all events
 	var db = mongoUse.getDb();
-	db.collection('sensor').find().sort({_id:-1}).limit(500).toArray(function(err,datas){
+	db.collection('sensor').find().sort({_id:-1}).limit(100).toArray(function(err,datas){
   	//console.log(data);
   	//return documents = data;
   	//return a view with data

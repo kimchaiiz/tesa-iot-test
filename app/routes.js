@@ -4,7 +4,7 @@
 		mainController = require('./controllers/main.controller');
 		recordsController = require('./controllers/records.controller');
 		datasController = require('./controllers/datas.controller');
-		testController = require('./controllers/test.controller');	
+		//testController = require('./controllers/test.controller');	
 		//export router
 		module.exports = router;
 
@@ -27,5 +27,8 @@
 		router.get('/events/:slug', eventsController.showSingle);
 		*/
 		// test
-		router.get('/datas', datasController.showDatas);
-		router.get('/test', testController.showTest);
+		router.get('/datas/table', datasController.showDatas);
+		//router.get('/table', testController.showTest);
+
+		//dashboard
+		router.get('/datas/dashboard', datasController.showDashboard);
